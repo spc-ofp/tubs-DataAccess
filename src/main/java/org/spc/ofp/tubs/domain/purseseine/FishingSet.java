@@ -186,7 +186,7 @@ public class FishingSet implements java.io.Serializable {
     private Integer percentageOfLargeTuna;
     
     // Not sure where on the form this comes from
-    @Column(name = "mtyftbet_obsv")
+    @Column(name = "mtyftbet_obs")
     private Double tonsOfYellowfinAndBigEyeObserved;
     
     // Again, doesn't look like it comes from the paper form

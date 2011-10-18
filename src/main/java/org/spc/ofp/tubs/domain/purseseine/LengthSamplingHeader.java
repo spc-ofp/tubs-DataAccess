@@ -71,6 +71,7 @@ public class LengthSamplingHeader implements java.io.Serializable {
     private AuditEntry auditEntry;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = FishingSet.class)
+	@JoinColumn(name = "s_set_id")
     private FishingSet fishingSet; 
 	
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = LengthSample.class, mappedBy = "header")

@@ -90,6 +90,27 @@ public class TripRepositoryTest {
 		assertNotNull(trip.getDays());
 		assertFalse(trip.getDays().isEmpty());
 		
+		// Purse-seine specific data
+		// Force a full object traversal
+		for (final Day day : trip.getDays()) {
+			if (null != day) {
+				for (final Activity activity : day.getActivities()) {
+					if (null != activity) {
+						final FishingSet fset = activity.getFishingSet();
+						if (null != fset) {
+							final List<SetCatch> catchList = fset.getCatchList();
+							assertNotNull(catchList);
+							final List<LengthSamplingHeader> sampleHeader = fset.getLengthSamples();
+							assertNotNull(sampleHeader);
+							for (final LengthSamplingHeader lsHeader : sampleHeader) {
+								assertNotNull(lsHeader.getColumnTotals());
+								assertNotNull(lsHeader.getPageTotals());
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 }
