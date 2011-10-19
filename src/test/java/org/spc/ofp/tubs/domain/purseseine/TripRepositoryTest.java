@@ -104,6 +104,8 @@ public class TripRepositoryTest {
 							final List<LengthSamplingHeader> sampleHeader = fset.getLengthSamples();
 							assertNotNull(sampleHeader);
 							for (final LengthSamplingHeader lsHeader : sampleHeader) {
+								assertNotNull(lsHeader.getBrails());
+								assertFalse(lsHeader.getBrails().isEmpty());
 								assertNotNull(lsHeader.getColumnTotals());
 								assertNotNull(lsHeader.getPageTotals());
 							}

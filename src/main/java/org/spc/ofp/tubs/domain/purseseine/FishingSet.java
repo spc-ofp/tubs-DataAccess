@@ -243,7 +243,6 @@ public class FishingSet implements java.io.Serializable {
       ,[b_escpercent]
       ,[b_nbspecies]
       ,[b_school]
-      ,[b_nbtags]
       ,[b_tagno]
       ,[b_sp_code]
       ,[b_len]

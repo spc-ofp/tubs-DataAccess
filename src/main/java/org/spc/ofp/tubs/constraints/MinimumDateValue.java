@@ -16,46 +16,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with TUBS.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.spc.ofp.tubs.domain;
+package org.spc.ofp.tubs.constraints;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
 /**
  * @author Corey Cole <coreyc@spc.int>
  *
  */
-@Embeddable
-public class AuditEntry {
+public class MinimumDateValue {
 
-	@Column(name = "entered_dtime", updatable = false)
-    private Date enteredDate;
-    
-    @Column(name = "entered_by", updatable = false)
-    private String enteredBy;
-    
-    public AuditEntry() { }
-    
-    public AuditEntry(final String who, final Date when) {
-    	this.enteredBy = who;
-    	this.enteredDate = when;
-    }
-
-	public Date getEnteredDate() {
-		return enteredDate;
-	}
-
-	public void setEnteredDate(Date enteredDate) {
-		this.enteredDate = enteredDate;
-	}
-
-	public String getEnteredBy() {
-		return enteredBy;
-	}
-
-	public void setEnteredBy(String enteredBy) {
-		this.enteredBy = enteredBy;
+	// According to www.epochconverter.com, this is Wed, 31 Dec 1980 23:59:59 GMT
+	// as epoch time.
+	public static final Date VALUE = new Date(347155199L);
+	
+	public static boolean isAfterMinimum(final Date dt) {
+		// The assumption here is that a null value is A-OK
+		// If you want to validate not-null, use the appropriate JSR-303 annotation
+		if (null == dt) { return true; }
+		return dt.after(VALUE);
 	}
 }

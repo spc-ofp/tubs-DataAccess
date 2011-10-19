@@ -25,6 +25,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 //import org.hibernate.annotations.Type;
+import org.spc.ofp.tubs.constraints.MinimumDateValue;
 import org.spc.ofp.tubs.domain.AuditEntry;
 import org.spc.ofp.tubs.domain.common.ReferenceId;
 import org.spc.ofp.tubs.domain.common.SeaState;
@@ -68,6 +69,10 @@ public class Activity implements java.io.Serializable {
     @Column(name = "act_dtime")
     @Past
     private Date localTime;
+    
+    @Column(name = "utc_act_dtime")
+    @Past
+    private Date utcTime;
     
     @Column(name = "lat")
     @Pattern(regexp = "[0-9]{4}\\.[0-9]{3}[NS]")
@@ -134,7 +139,17 @@ public class Activity implements java.io.Serializable {
     private Day day; // Pointer back to containing day
     
     @OneToOne(cascade = CascadeType.ALL, targetEntity = FishingSet.class, mappedBy = "logEvent")
-    private FishingSet fishingSet; 
+    private FishingSet fishingSet;
+    
+    @AssertTrue(message = "invalid local activity time (before January 1st, 1981)")
+    public boolean isValidLocalDate() {
+    	return MinimumDateValue.isAfterMinimum(this.localTime);
+    }
+    
+    @AssertTrue(message = "invalid UTC activity time (before January 1st, 1981)")
+    public boolean isValidUtcDate() {
+    	return MinimumDateValue.isAfterMinimum(this.utcTime);
+    }
     
     public boolean hasPosition() {
         return
@@ -286,5 +301,13 @@ public class Activity implements java.io.Serializable {
 
 	public void setFishingSet(FishingSet fishingSet) {
 		this.fishingSet = fishingSet;
+	}
+
+	public Date getUtcTime() {
+		return utcTime;
+	}
+
+	public void setUtcTime(Date utcTime) {
+		this.utcTime = utcTime;
 	}
 }

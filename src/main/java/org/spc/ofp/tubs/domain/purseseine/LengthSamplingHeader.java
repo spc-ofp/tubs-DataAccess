@@ -81,6 +81,9 @@ public class LengthSamplingHeader implements java.io.Serializable {
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = LengthSampleColumnTotal.class, mappedBy = "header")
 	private List<LengthSampleColumnTotal> columnTotals;
 	
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Brail.class, mappedBy = "header")
+	private List<Brail> brails;
+	
 	@OneToOne(cascade = CascadeType.ALL, targetEntity = LengthSamplePageTotal.class, mappedBy = "header")
 	private LengthSamplePageTotal pageTotals;
 
@@ -170,5 +173,13 @@ public class LengthSamplingHeader implements java.io.Serializable {
 
 	public void setFishingSet(FishingSet fishingSet) {
 		this.fishingSet = fishingSet;
+	}
+
+	public List<Brail> getBrails() {
+		return brails;
+	}
+
+	public void setBrails(List<Brail> brails) {
+		this.brails = brails;
 	}
 }
