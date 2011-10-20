@@ -300,6 +300,7 @@ public class Activity implements java.io.Serializable {
 	}
 
 	public void setFishingSet(FishingSet fishingSet) {
+		if (null != fishingSet) { fishingSet.setLogEvent(this); }
 		this.fishingSet = fishingSet;
 	}
 

@@ -56,6 +56,11 @@ public class PurseSeineTrip extends Trip {
 	}
 
 	public void setDays(List<Day> days) {
+		if (null != days) {
+			for (final Day day : days) {
+				day.setTrip(this);
+			}
+		}
 		this.days = days;
 	}
 }

@@ -148,6 +148,11 @@ public class LengthSamplingHeader implements java.io.Serializable {
 	}
 
 	public void setSamples(List<LengthSample> samples) {
+		if (null != samples) {
+			for (final LengthSample sample : samples) {
+				sample.setHeader(this);
+			}
+		}
 		this.samples = samples;
 	}
 
@@ -156,6 +161,11 @@ public class LengthSamplingHeader implements java.io.Serializable {
 	}
 
 	public void setColumnTotals(List<LengthSampleColumnTotal> columnTotals) {
+		if (null != columnTotals) {
+			for (final LengthSampleColumnTotal columnTotal : columnTotals) {
+				columnTotal.setHeader(this);
+			}
+		}
 		this.columnTotals = columnTotals;
 	}
 
@@ -164,6 +174,7 @@ public class LengthSamplingHeader implements java.io.Serializable {
 	}
 
 	public void setPageTotals(LengthSamplePageTotal pageTotals) {
+		if (null != pageTotals) { pageTotals.setHeader(this); }
 		this.pageTotals = pageTotals;
 	}
 
@@ -180,6 +191,11 @@ public class LengthSamplingHeader implements java.io.Serializable {
 	}
 
 	public void setBrails(List<Brail> brails) {
+		if (null != brails) {
+			for (final Brail brail : brails) {
+				brail.setHeader(this);
+			}
+		}
 		this.brails = brails;
 	}
 }

@@ -101,8 +101,8 @@ public class FishingSet implements java.io.Serializable {
     /**
      * Is this vessel tonnage only from this set?
      */
-    @Column(name = "ld_fromthisset_ans")
-    private Boolean vesselTonnageOnlyFromThisSet;
+    @Column(name = "ld_fromthisset_ans", length = 1)
+    private String vesselTonnageOnlyFromThisSet;
     
     /**
      * New onboard total (obs)
@@ -288,7 +288,7 @@ public class FishingSet implements java.io.Serializable {
 		return setNumber;
 	}
 
-	public void setSetNumber(Integer setNumber) {
+	public void setSetNumber(final Integer setNumber) {
 		this.setNumber = setNumber;
 	}
 
@@ -296,7 +296,7 @@ public class FishingSet implements java.io.Serializable {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(final Date startTime) {
 		this.startTime = startTime;
 	}
 
@@ -304,7 +304,7 @@ public class FishingSet implements java.io.Serializable {
 		return skiffOff;
 	}
 
-	public void setSkiffOff(Date skiffOff) {
+	public void setSkiffOff(final Date skiffOff) {
 		this.skiffOff = skiffOff;
 	}
 
@@ -489,6 +489,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public void setCatchList(List<SetCatch> catchList) {
+		if (null != catchList) {
+			for (final SetCatch sc : catchList) {
+				sc.setFishingSet(this);
+			}
+		}
 		this.catchList = catchList;
 	}
 
@@ -509,11 +514,13 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getVesselTonnageOnlyFromThisSet() {
-		return vesselTonnageOnlyFromThisSet;
+		return "Y".equalsIgnoreCase(vesselTonnageOnlyFromThisSet);
 	}
 
-	public void setVesselTonnageOnlyFromThisSet(Boolean vesselTonnageOnlyFromThisSet) {
-		this.vesselTonnageOnlyFromThisSet = vesselTonnageOnlyFromThisSet;
+	public void setVesselTonnageOnlyFromThisSet(Boolean value) {
+		this.vesselTonnageOnlyFromThisSet = 
+		    null == value ? null :
+		    value ? "Y" : "N";
 	}
 
 	public Double getSumOfBrail1() {
@@ -626,6 +633,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public void setLengthSamples(List<LengthSamplingHeader> lengthSamples) {
+		if (null != lengthSamples) {
+			for (final LengthSamplingHeader lsh : lengthSamples) {
+				lsh.setFishingSet(this);
+			}
+		}
 		this.lengthSamples = lengthSamples;
 	}
 }

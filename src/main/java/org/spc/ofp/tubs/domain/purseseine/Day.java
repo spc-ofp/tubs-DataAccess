@@ -202,6 +202,11 @@ public class Day implements java.io.Serializable {
 	}
 
 	public void setActivities(List<Activity> activities) {
+		if (null != activities) {
+			for (final Activity activity : activities) {
+				activity.setDay(this);
+			}
+		}
 		this.activities = activities;
 	}
 
