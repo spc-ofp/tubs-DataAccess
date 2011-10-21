@@ -74,7 +74,6 @@ public class TubsAppConfig {
 		//jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
 		// This sets us up for being able to use the GIS functionality in SQL Server via HibernateSpatial
 		jpaProperties.setProperty("hibernate.dialect", "org.hibernatespatial.sqlserver.SQLServerSpatialDialect");
-		//jpaProperties.setProperty("hibernate.show_sql", "true");
 		emf.setJpaProperties(jpaProperties);
 		emf.afterPropertiesSet();
 		return emf.getNativeEntityManagerFactory();

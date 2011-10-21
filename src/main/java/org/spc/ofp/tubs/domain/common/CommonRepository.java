@@ -48,6 +48,14 @@ public class CommonRepository {
 		return em.find(SeaState.class, seaState);
 	}
 	
+	public FishCondition findConditionByCode(final String fc) {
+		return em.find(FishCondition.class, fc);
+	}
+	
+	public Fate findFateByCode(final String fc) {
+		return em.find(Fate.class, fc);
+	}
+	
 	public Observer findByStaffCode(final String staffCode) {
 		return em.createQuery(
 		    "SELECT o FROM Observer o WHERE o.staffCode = ?1", 

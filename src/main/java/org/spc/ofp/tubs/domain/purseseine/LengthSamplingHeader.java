@@ -57,15 +57,12 @@ public class LengthSamplingHeader implements java.io.Serializable {
 	
 	@Column(name = "sbrail_time")
 	@Size(max = 4)
-	// Does @Min(0), @Max(2359) provide a better validation?
-	@Min(0)
-	@Max(2359)
-	@Pattern(regexp = "[0-2][0-9][0-5][0-9]") // TODO Confirm this is a reasonable regex.  Also, check for time of day pattern
+	//@Pattern(regexp = "[0-2][0-9][0-5][0-9]") // TODO Confirm this is a reasonable regex.  Also, check for time of day pattern
 	private String brailStartTime;
 	
 	@Column(name = "ebrail_time")
 	@Size(max = 4)
-	@Pattern(regexp = "[0-2][0-9][0-5][0-9]") // TODO Confirm this is a reasonable regex.  Also, check for time of day pattern
+	//@Pattern(regexp = "[0-2][0-9][0-5][0-9]") // TODO Confirm this is a reasonable regex.  Also, check for time of day pattern
 	private String brailEndTime;
 	
 	@Embedded

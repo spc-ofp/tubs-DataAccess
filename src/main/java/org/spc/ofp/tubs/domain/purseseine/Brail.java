@@ -42,8 +42,6 @@ public class Brail implements java.io.Serializable {
     private long id;
 	
 	@Column(name = "whichbrail")
-	@Min(1)
-	@Max(2)
 	private Integer brailNumber; // Either Brail1 or Brail2
 	
 	@Column(name = "pagenumber")

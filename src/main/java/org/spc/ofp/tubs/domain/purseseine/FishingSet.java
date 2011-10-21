@@ -143,8 +143,8 @@ public class FishingSet implements java.io.Serializable {
      * From the 'YES/NO' row of the 'SKJ' column of the area titled
      * "TOTAL SKJ-YFT-BET"
      */
-    @Column(name = "totskj_ans")
-    private Boolean containsSkipjack;
+    @Column(name = "totskj_ans", length = 1)
+    private String containsSkipjack;
     
     /**
      * From the 'approx. %' row of the 'SKJ' column of the area titled
@@ -160,8 +160,8 @@ public class FishingSet implements java.io.Serializable {
     @Column(name = "mtskj_obs")
     private Double tonsOfSkipjackObserved;
     
-    @Column(name = "totyft_ans")
-    private Boolean containsYellowfin; 
+    @Column(name = "totyft_ans", length = 1)
+    private String containsYellowfin; 
     
     @Column(name = "perc_yft")
     private Integer yellowfinPercentage;
@@ -169,8 +169,8 @@ public class FishingSet implements java.io.Serializable {
     @Column(name = "mtyft_obs")
     private Double tonsOfYellowfinObserved;
     
-    @Column(name = "totbet_ans")
-    private Boolean containsBigeye;
+    @Column(name = "totbet_ans", length = 1)
+    private String containsBigeye;
     
     @Column(name = "perc_bet")
     private Integer bigeyePercentage;
@@ -179,8 +179,8 @@ public class FishingSet implements java.io.Serializable {
     private Double tonsOfBigeyeObserved;
     
     // Not sure where on the form this comes from
-    @Column(name = "totyftbet_ans")
-    private Boolean containsLargeTuna;
+    @Column(name = "totyftbet_ans", length = 1)
+    private String containsLargeTuna;
     
     // Not sure where on the form this comes from
     @Column(name = "perc_yftbet")
@@ -191,8 +191,8 @@ public class FishingSet implements java.io.Serializable {
     private Double tonsOfYellowfinAndBigEyeObserved;
     
     // Again, doesn't look like it comes from the paper form
-    @Column(name = "tottun_ans")
-    private Boolean totalTunaAnswer; // FIXME
+    @Column(name = "tottun_ans", length = 1)
+    private String totalTunaAnswer; // FIXME
     
     // Again, doesn't look like it comes from the paper form
     @Column(name = "perc_tun")
@@ -275,6 +275,20 @@ public class FishingSet implements java.io.Serializable {
     // Child list of LengthSamplingHeader objects
     @OneToMany(cascade = CascadeType.ALL, targetEntity = LengthSamplingHeader.class, mappedBy = "fishingSet")
     private List<LengthSamplingHeader> lengthSamples;
+    
+    public static Boolean asBoolean(final String value) {
+    	return
+    	    null == value ? null :
+    	    "Y".equalsIgnoreCase(value.trim()) ? Boolean.TRUE :
+    	    "N".equalsIgnoreCase(value.trim()) ? Boolean.FALSE :
+    	    null;
+    }
+    
+    public static String fromBoolean(final Boolean value) {
+    	return
+    		null == value ? null :
+    		value ? "Y" : "N";
+    }
 
 	public long getId() {
 		return id;
@@ -389,11 +403,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getContainsSkipjack() {
-		return containsSkipjack;
+		return asBoolean(containsSkipjack);
 	}
 
 	public void setContainsSkipjack(Boolean containsSkipjack) {
-		this.containsSkipjack = containsSkipjack;
+		this.containsSkipjack = fromBoolean(containsSkipjack);
 	}
 
 	public Integer getSkipjackPercentage() {
@@ -413,11 +427,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getContainsYellowfin() {
-		return containsYellowfin;
+		return asBoolean(containsYellowfin);
 	}
 
 	public void setContainsYellowfin(Boolean containsYellowfin) {
-		this.containsYellowfin = containsYellowfin;
+		this.containsYellowfin = fromBoolean(containsYellowfin);
 	}
 
 	public Integer getYellowfinPercentage() {
@@ -437,11 +451,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getContainsBigeye() {
-		return containsBigeye;
+		return asBoolean(containsBigeye);
 	}
 
 	public void setContainsBigeye(Boolean containsBigeye) {
-		this.containsBigeye = containsBigeye;
+		this.containsBigeye = fromBoolean(containsBigeye);
 	}
 
 	public Integer getBigeyePercentage() {
@@ -514,13 +528,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getVesselTonnageOnlyFromThisSet() {
-		return "Y".equalsIgnoreCase(vesselTonnageOnlyFromThisSet);
+		return asBoolean(vesselTonnageOnlyFromThisSet);
 	}
 
 	public void setVesselTonnageOnlyFromThisSet(Boolean value) {
-		this.vesselTonnageOnlyFromThisSet = 
-		    null == value ? null :
-		    value ? "Y" : "N";
+		this.vesselTonnageOnlyFromThisSet = fromBoolean(value);
 	}
 
 	public Double getSumOfBrail1() {
@@ -540,11 +552,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getContainsLargeTuna() {
-		return containsLargeTuna;
+		return asBoolean(containsLargeTuna);
 	}
 
 	public void setContainsLargeTuna(Boolean containsLargeTuna) {
-		this.containsLargeTuna = containsLargeTuna;
+		this.containsLargeTuna = fromBoolean(containsLargeTuna);
 	}
 
 	public Integer getPercentageOfLargeTuna() {
@@ -565,11 +577,11 @@ public class FishingSet implements java.io.Serializable {
 	}
 
 	public Boolean getTotalTunaAnswer() {
-		return totalTunaAnswer;
+		return asBoolean(totalTunaAnswer);
 	}
 
 	public void setTotalTunaAnswer(Boolean totalTunaAnswer) {
-		this.totalTunaAnswer = totalTunaAnswer;
+		this.totalTunaAnswer = fromBoolean(totalTunaAnswer);
 	}
 
 	public Integer getPercentageOfTuna() {

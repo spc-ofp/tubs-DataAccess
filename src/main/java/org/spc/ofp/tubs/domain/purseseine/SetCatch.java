@@ -88,21 +88,20 @@ public class SetCatch implements java.io.Serializable, Comparable<SetCatch> {
     
     // FIXME
     // These columns don't appear to be wired to the user interface
-    /*
     @Column(name = "sp_c_spcomp")
     private Double sp_c_spcomp;
     
     @Column(name = "sp_w_low")
-    private Double sp_w_low;
+    private Double speciesWeightLow;
     
     @Column(name = "sp_w_high")
-    private Double sp_w_high;
+    private Double speciesWeightHigh;
     
     @Column(name = "avg_len")
-    private Integer avg_len;
+    private Integer averageLength;
     
     @Column(name = "sp_w_est")
-    private Double sp_w_est;
+    private Double speciesWeightEstimate;
     
     @Column(name = "sp_w_id")
     private Integer sp_w_id;
@@ -115,7 +114,6 @@ public class SetCatch implements java.io.Serializable, Comparable<SetCatch> {
     
     @Column(name = "sp_n_est")
     private Integer sp_n_est;
-    */
     
     @Embedded
     private AuditEntry auditEntry;
@@ -218,5 +216,77 @@ public class SetCatch implements java.io.Serializable, Comparable<SetCatch> {
 
 	public void setFishingSet(FishingSet fishingSet) {
 		this.fishingSet = fishingSet;
+	}
+
+	public Double getSp_c_spcomp() {
+		return sp_c_spcomp;
+	}
+
+	public void setSp_c_spcomp(Double sp_c_spcomp) {
+		this.sp_c_spcomp = sp_c_spcomp;
+	}
+
+	public Double getSpeciesWeightLow() {
+		return speciesWeightLow;
+	}
+
+	public void setSpeciesWeightLow(Double speciesWeightLow) {
+		this.speciesWeightLow = speciesWeightLow;
+	}
+
+	public Double getSpeciesWeightHigh() {
+		return speciesWeightHigh;
+	}
+
+	public void setSpeciesWeightHigh(Double speciesWeightHigh) {
+		this.speciesWeightHigh = speciesWeightHigh;
+	}
+
+	public Integer getAverageLength() {
+		return averageLength;
+	}
+
+	public void setAverageLength(Integer averageLength) {
+		this.averageLength = averageLength;
+	}
+
+	public Double getSpeciesWeightEstimate() {
+		return speciesWeightEstimate;
+	}
+
+	public void setSpeciesWeightEstimate(Double speciesWeightEstimate) {
+		this.speciesWeightEstimate = speciesWeightEstimate;
+	}
+
+	public Integer getSp_w_id() {
+		return sp_w_id;
+	}
+
+	public void setSp_w_id(Integer sp_w_id) {
+		this.sp_w_id = sp_w_id;
+	}
+
+	public Double getSp_c_est() {
+		return sp_c_est;
+	}
+
+	public void setSp_c_est(Double sp_c_est) {
+		this.sp_c_est = sp_c_est;
+	}
+
+	public Integer getSp_c_id() {
+		return sp_c_id;
+	}
+
+	public void setSp_c_id(Integer sp_c_id) {
+		this.sp_c_id = sp_c_id;
+	}
+
+	public Integer getSp_n_est() {
+		return sp_n_est;
+	}
+
+	public void setSp_n_est(Integer sp_n_est) {
+		this.sp_n_est = sp_n_est;
 	} 
 }
