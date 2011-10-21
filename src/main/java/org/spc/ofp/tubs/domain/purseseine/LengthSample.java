@@ -86,7 +86,11 @@ public class LengthSample implements java.io.Serializable {
 	}
 
 	public void setSpeciesCode(String speciesCode) {
-		this.speciesCode = speciesCode;
+		if (null != speciesCode && speciesCode.trim().length() < 3) {
+			this.speciesCode = "UNS";
+		} else {
+			this.speciesCode = speciesCode;
+		}
 	}
 
 	public String getLengthCode() {

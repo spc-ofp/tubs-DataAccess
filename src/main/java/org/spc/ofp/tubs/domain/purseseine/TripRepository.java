@@ -41,13 +41,15 @@ public class TripRepository {
 	
 	public void save(final PurseSeineTrip trip) {
 		final EntityManager mgr = emf.createEntityManager();
-		try {
-			final EntityTransaction xa = mgr.getTransaction();
+		final EntityTransaction xa = mgr.getTransaction();
+		try {			
 			xa.begin();
 			mgr.persist(trip);
 			mgr.flush();
 			xa.commit();
 			mgr.refresh(trip);
+		} catch (Exception ex) {
+			if (xa.isActive()) { xa.rollback(); }
 		} finally {
 			mgr.close();
 		}
@@ -55,11 +57,13 @@ public class TripRepository {
 	
 	public void update(final PurseSeineTrip trip) {
 		final EntityManager mgr = emf.createEntityManager();
-		try {
-			final EntityTransaction xa = mgr.getTransaction();
+		final EntityTransaction xa = mgr.getTransaction();
+		try {			
 			xa.begin();
 			mgr.merge(trip);
 			xa.commit();
+		} catch (Exception ex) {
+			if (xa.isActive()) { xa.rollback(); }
 		} finally {
 			mgr.close();
 		}
