@@ -93,8 +93,7 @@ public class CommonRepository {
 		final EntityManager mgr = emf.createEntityManager();
 		final EntityTransaction xa = mgr.getTransaction();
 		xa.begin();
-		try {
-			
+		try {			
 			if (status.getId() > 0L) {
 				mgr.merge(status);
 			} else {
