@@ -18,11 +18,7 @@
  */
 package org.spc.ofp.tubs.domain.common;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
 
 import org.spc.ofp.tubs.domain.ImportStatus;
 import org.springframework.stereotype.Repository;
@@ -44,6 +40,28 @@ public class CommonRepository {
 	@PersistenceUnit
 	protected EntityManagerFactory emf;
 	
+	public Port findPortByNameAndCountry(final String name, final String countryCode) {
+		Port p = null;
+		// Only catch NoResultException.  NonUniqueResultException means cleanup is necessary
+		// and anything else is just like the rest of this code
+		try {
+			p = em.createQuery(
+					"SELECT p FROM Port p WHERE p.name = ?1 AND p.countryCode = ?2", Port.class)
+					    .setParameter(1, name)
+					    .setParameter(2, countryCode)
+					    .getSingleResult();
+		} catch (NoResultException nre) {
+			try {
+				p = em.createQuery(
+						"SELECT p FROM Port p WHERE p.alsoCalled = ?1 AND p.countryCode = ?2", Port.class)
+						    .setParameter(1, name)
+						    .setParameter(2, countryCode)
+						    .getSingleResult();
+			} catch (NoResultException ignoreMe) { } /* NOPMD */
+		}
+		return p;
+	}
+	
 	public SeaState findSeaStateByCode(final String seaState) {
 		return em.find(SeaState.class, seaState);
 	}
@@ -61,10 +79,6 @@ public class CommonRepository {
 		    "SELECT o FROM Observer o WHERE o.staffCode = ?1", 
 		    Observer.class).setParameter(
 		        1, staffCode).getSingleResult();
-	}
-	
-	public Port findPortById(final long portId) {
-		return em.find(Port.class, portId);
 	}
 	
 	public Vessel findVesselById(final long vesselId) {
@@ -99,40 +113,6 @@ public class CommonRepository {
 			} else {
 				mgr.persist(status);
 			}
-			xa.commit();
-			success = true;
-		} catch (Exception ignoreMe) { 
-			rollbackQuietly(xa);
-		} finally {
-			mgr.close();
-		}
-		return success;
-	}
-	
-	public boolean saveObserver(final Observer observer) {
-		boolean success = false;
-		final EntityManager mgr = emf.createEntityManager();
-		final EntityTransaction xa = mgr.getTransaction();
-		xa.begin();
-		try {
-			mgr.persist(observer);
-			xa.commit();
-			success = true;
-		} catch (Exception ignoreMe) { 
-			rollbackQuietly(xa);
-		} finally {
-			mgr.close();
-		}
-		return success;
-	}
-	
-	public boolean savePort(final Port port) {
-		boolean success = false;
-		final EntityManager mgr = emf.createEntityManager();
-		final EntityTransaction xa = mgr.getTransaction();
-		xa.begin();
-		try {
-			mgr.persist(port);
 			xa.commit();
 			success = true;
 		} catch (Exception ignoreMe) { 

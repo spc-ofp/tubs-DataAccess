@@ -71,9 +71,9 @@ public class TubsAppConfig {
 		emf.setJpaVendorAdapter(jpaAdapter());
 		final Properties jpaProperties = new Properties();
 		// FIXME Change this to read Hibernate dialect from Spring configuration XML
-		//jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
 		// This sets us up for being able to use the GIS functionality in SQL Server via HibernateSpatial
 		jpaProperties.setProperty("hibernate.dialect", "org.hibernatespatial.sqlserver.SQLServerSpatialDialect");
+		jpaProperties.setProperty("hibernate.show_sql", "false");
 		emf.setJpaProperties(jpaProperties);
 		emf.afterPropertiesSet();
 		return emf.getNativeEntityManagerFactory();

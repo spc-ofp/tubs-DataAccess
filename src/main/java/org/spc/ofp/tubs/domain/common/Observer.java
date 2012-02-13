@@ -49,16 +49,8 @@ public class Observer implements Serializable {
     @Column(name = "family_name")
     private String familyName;
     
-    @OneToOne
-    @JoinColumn(name = "home_port_id")
-    private Port homePort;
-    
     @Column(name = "nationality_country_code", length = 2)
     private String nationalityCountryCode;
-    
-    public String homePortName() {
-        return null == homePort ? "N/A" : homePort.getName();
-    }
     
     @Override
     public String toString() {
@@ -98,14 +90,6 @@ public class Observer implements Serializable {
 
 	public void setFamilyName(String familyName) {
 		this.familyName = familyName;
-	}
-
-	public Port getHomePort() {
-		return homePort;
-	}
-
-	public void setHomePort(Port homePort) {
-		this.homePort = homePort;
 	}
 
 	public String getNationalityCountryCode() {

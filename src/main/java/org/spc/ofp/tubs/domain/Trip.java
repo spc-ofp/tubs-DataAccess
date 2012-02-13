@@ -26,8 +26,6 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.spc.ofp.tubs.domain.common.Observer;
-import org.spc.ofp.tubs.domain.common.Port;
 import org.spc.ofp.tubs.domain.common.Vessel;
 
 /**
@@ -59,20 +57,15 @@ public abstract class Trip implements java.io.Serializable {
     @Column(name = "staff_code")
     private String staffCode;
     
-    @OneToOne
-    @JoinColumn(name = "staff_id")
-    private Observer observer;
-    
     @Column(name = "obsprg_code", nullable = false)
     private String programCode;
     
-    @OneToOne
-    @JoinColumn(name = "dep_port_id")
-    private Port departurePort;
+    @Column(name = "dep_port", length = 5)
+    private String departurePort;
+
     
-    @OneToOne
-    @JoinColumn(name = "ret_port_id")
-    private Port returnPort;
+    @Column(name = "ret_port", length = 5)
+    private String returnPort;
     
     @Column(name = "gear_code", length = 1, insertable = false, updatable = false)
     public String gearCode; // TODO: Change to enum
@@ -121,7 +114,7 @@ public abstract class Trip implements java.io.Serializable {
     
     public String tripName() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(null == observer ? "N/A" : observer.getStaffCode().trim()).append(" / ");
+        sb.append(null == staffCode ? "N/A" : staffCode.trim()).append(" / ");
         sb.append(null == tripNumber ? "N/A" : tripNumber.trim());
         return sb.toString();
     }
@@ -249,27 +242,19 @@ public abstract class Trip implements java.io.Serializable {
 		}		
 	}
 
-	public Observer getObserver() {
-		return observer;
-	}
-
-	public void setObserver(Observer observer) {
-		this.observer = observer;
-	}
-
-	public Port getDeparturePort() {
+	public String getDeparturePort() {
 		return departurePort;
 	}
 
-	public void setDeparturePort(Port departurePort) {
+	public void setDeparturePort(final String departurePort) {
 		this.departurePort = departurePort;
 	}
 
-	public Port getReturnPort() {
+	public String getReturnPort() {
 		return returnPort;
 	}
 
-	public void setReturnPort(Port returnPort) {
+	public void setReturnPort(final String returnPort) {
 		this.returnPort = returnPort;
 	}
 

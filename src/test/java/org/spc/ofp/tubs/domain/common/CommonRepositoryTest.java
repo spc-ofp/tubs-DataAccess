@@ -49,9 +49,14 @@ public class CommonRepositoryTest {
 	private static final String OBSERVER_FNAME = "BASIL";
 	private static final String OBSERVER_LNAME = "ADAMS";
 	
-	private static final long PORT_ID = 67L;
 	private static final String PORT_NAME = "MAJURO";
 	private static final String PORT_COUNTRY_CODE = "MH";
+	private static final String PORT_LOCODE = "MHMAJ";
+	
+	private static final String PORT_NAME_2 = "CHUUK";
+	private static final String PORT_ALSO_CALLED_2 = "TRUK";
+	private static final String PORT_COUNTRY_CODE_2 = "FM";	
+	private static final String PORT_LOCODE_2 = "FMTKK";
 	
 	
 	/**
@@ -70,17 +75,34 @@ public class CommonRepositoryTest {
 	}
 
 	/**
-	 * Test method for {@link org.spc.ofp.tubs.domain.common.CommonRepository#findPortById(long)}.
+	 * Test method for {@link org.spc.ofp.tubs.domain.common.CommonRepository#findPortByNameAndCountry(java.lang.String,java.lang.String)}.
 	 */
 	@Test
-	public void testFindPortById() {
-		final Port tp = repo.findPortById(PORT_ID);
+	public void findPortByNameAndCountry() {
+		final Port tp = repo.findPortByNameAndCountry(PORT_NAME, PORT_COUNTRY_CODE);
 		assertNotNull(tp);
-		assertEquals(PORT_ID, tp.getId());
 		assertNotNull(tp.getName());
 		assertTrue(PORT_NAME.equalsIgnoreCase(tp.getName().trim()));
 		assertNotNull(tp.getCountryCode());
 		assertTrue(PORT_COUNTRY_CODE.equalsIgnoreCase(tp.getCountryCode().trim()));
+		assertNotNull(tp.getLocationCode());
+		assertTrue(PORT_LOCODE.equalsIgnoreCase(tp.getLocationCode().trim()));
+	}
+	
+	@Test
+	public void findPortByAlternateNameAndCountry() {
+		final Port tp = repo.findPortByNameAndCountry(PORT_ALSO_CALLED_2, PORT_COUNTRY_CODE_2);
+		assertNotNull(tp);
+		assertNotNull(tp.getName());
+		assertNotNull(tp.getCountryCode());
+		assertNotNull(tp.getLocationCode());
+		assertNotNull(tp.getAlsoCalled());
+		
+		assertTrue(PORT_NAME_2.equalsIgnoreCase(tp.getName().trim()));
+		assertTrue(PORT_COUNTRY_CODE_2.equalsIgnoreCase(tp.getCountryCode().trim()));
+		assertTrue(PORT_LOCODE_2.equalsIgnoreCase(tp.getLocationCode().trim()));
+		assertTrue(PORT_ALSO_CALLED_2.equalsIgnoreCase(tp.getAlsoCalled().trim()));
+		
 	}
 
 	/**

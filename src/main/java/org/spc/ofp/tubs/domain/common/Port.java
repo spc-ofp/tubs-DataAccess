@@ -46,6 +46,12 @@ public class Port implements Serializable {
     @Column(name = "country_code")
     private String countryCode;
     
+    @Column(name = "location_code")
+    private String locationCode;
+    
+    @Column(name = "alsocalled")
+    private String alsoCalled;
+    
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(32);
@@ -59,7 +65,7 @@ public class Port implements Serializable {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 
@@ -67,7 +73,7 @@ public class Port implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -75,7 +81,23 @@ public class Port implements Serializable {
 		return countryCode;
 	}
 
-	public void setCountryCode(String countryCode) {
+	public void setCountryCode(final String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public String getLocationCode() {
+		return locationCode;
+	}
+
+	public void setLocationCode(final String locationCode) {
+		this.locationCode = locationCode;
+	}
+
+	public String getAlsoCalled() {
+		return alsoCalled;
+	}
+
+	public void setAlsoCalled(final String alsoCalled) {
+		this.alsoCalled = alsoCalled;
 	}
 }

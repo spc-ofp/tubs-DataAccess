@@ -43,7 +43,8 @@ public class TripRepositoryTest {
 	@Autowired
 	protected TripRepository repo;
 	
-	private static final long DOES_EXIST = 12517L;
+	// 55 in test database, 12517 in prod
+	private static final long DOES_EXIST = 55L /*12517L*/;
 	
 	/**
 	 * Test method for {@link org.spc.ofp.tubs.domain.purseseine.TripRepository#findById(long)}.
@@ -53,7 +54,7 @@ public class TripRepositoryTest {
 		final PurseSeineTrip trip = repo.findById(DOES_EXIST);
 		assertNotNull(trip);
 		assertEquals(DOES_EXIST, trip.getId());
-		assertNotNull(trip.getObserver());
+		assertNotNull(trip.getStaffCode());
 		assertNotNull(trip.getDeparturePort());
 		assertNotNull(trip.getReturnPort());
 		assertNotNull(trip.getVessel());
